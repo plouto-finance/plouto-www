@@ -79,7 +79,7 @@ const initialState = {
         },
         {
           id: 'pETH/DAI LP',
-          address: '0x263393Cf444Ee3F9A7Bd4C555FF8E058199AE78e',
+          address: '0xF0CF7B39e87e6e2478d0481777398b79Aace4b08',
           erc20address: '0xa478c2975ab1ea89e8196811f51a7b7ade33eb11',
           symbol: 'pETH/DAI LP',
           abi: config.erc20ABI,
