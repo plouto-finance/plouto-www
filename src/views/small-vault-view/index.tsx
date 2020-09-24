@@ -140,16 +140,13 @@ function SmallVaultView() {
   }
   const viewJoined = () => {
     setShowJoined(true);
-    console.log('view joined')
   }
   const onSave = (form: any) => {
-    console.log('form', form);
   }
   const hide = () => {
     setOpen(false);
   }
   const onItemClick = (itemObj: any) => {
-    console.log('itemObj', itemObj);
     setType('detail');
     setCurrentVaultObj(itemObj);
   }

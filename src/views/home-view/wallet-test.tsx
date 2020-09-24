@@ -29,11 +29,11 @@ function HomeView() {
   }, [account]);
 
   const handleConnect = () => {
-    activate(connectorsByName.MetaMask, (error) => console.log(error));
+    activate(connectorsByName.MetaMask, (error) => {});
   };
 
   const handleConnectLedger = () => {
-    activate(connectorsByName.Ledger, (error) => console.log(error));
+    activate(connectorsByName.Ledger, (error) => {});
   };
 
   const handleDisconnect = () => {

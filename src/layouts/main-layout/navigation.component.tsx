@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
-import { GitHub, Twitter, Telegram } from '@material-ui/icons';
+import { GitHub, Twitter, Telegram, Description, BorderColor } from '@material-ui/icons';
 import { List, Grid, ListItem, ListItemText, ListItemIcon, Divider, Hidden, Drawer } from '@material-ui/core';
 import logo from 'src/assets/img/plouto-logo.png';
 import bigCoffers from 'src/assets/img/coffers-big.png';
@@ -57,7 +57,14 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       "& .MuiTypography-body1": {
         fontWeight: 400
-      }
+      },
+      "& a": {
+        textDecoration: 'none',
+        display: 'block'
+      },
+      "& .MuiListItem-root":{
+        color: 'white',
+      },
     },
     logo: {
       fontSize: 24,
@@ -81,9 +88,26 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'relative',
       fontFamily: 'PingFangSC-Regular, PingFang SC',
       fontWeight: 400,
-      color: '#E0E0E0',
-      "& p": {
-        paddingLeft: 58,
+      "& a": {
+        textDecoration: 'none',
+        display: 'block'
+      },
+      "& .MuiListItemIcon-root": {
+        minWidth: 36,
+        color: 'white',
+        "& .MuiSvgIcon-root":{
+          fontSize: 18,
+        }
+      },
+      "& .MuiListItem-gutters": {
+        paddingLeft: 28
+      },
+      "& .MuiTypography-body1": {
+        fontWeight: 400,
+        fontSize: 14,
+      },
+      "& .MuiListItem-root":{
+        color: 'white',
       },
       marginBottom: 36
     },
@@ -162,11 +186,11 @@ export default function SwipeableTemporaryDrawer(props: Props) {
       url: '/tool',
       src: toolIcon,
     },
-    {
-      title: i18n.t("menu.vote"),
-      url: '',
-      src: forumIcon
-    }
+    // {
+    //   title: i18n.t("menu.vote"),
+    //   url: '',
+    //   src: forumIcon
+    // }
   ];
 
   const toggleDrawer = (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -205,15 +229,33 @@ export default function SwipeableTemporaryDrawer(props: Props) {
               </ListItem>
             </RouterLink>
           ))}
+          <a href="https://forum.plouto.finance" target="_blank">
+            <ListItem button>
+              <ListItemIcon>
+                <img src={forumIcon} />
+              </ListItemIcon>
+              <ListItemText primary={i18n.t("menu.vote")} />
+            </ListItem>
+          </a>
         </List>
         <div className={classes.line}><Divider /></div>
         <div className={classes.othernNav}>
-          <ListItem button>
-            <p>DOCS</p>
-          </ListItem>
-          <ListItem button>
-            <p>{i18n.t("menu.audit")}</p>
-          </ListItem>
+          <a href="https://docs.plouto.finance" target="_blank">
+            <ListItem button>
+              <ListItemIcon>
+                <Description />
+              </ListItemIcon>
+              <ListItemText primary="Docs" />
+            </ListItem>
+          </a>
+          <a href="" target="_blank">
+            <ListItem button>
+              <ListItemIcon>
+                <BorderColor />
+              </ListItemIcon>
+              <ListItemText primary={i18n.t("menu.audit")} />
+            </ListItem>
+          </a>
         </div>
       </div>
       <div className={classes.navBottom}>

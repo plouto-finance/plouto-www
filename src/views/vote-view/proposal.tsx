@@ -1,7 +1,7 @@
 import React from "react";
 import {
   makeStyles,
-  Accordion, AccordionSummary, AccordionDetails, Typography, Grid, Link, Button, Box, Theme
+  Accordion, AccordionSummary, AccordionDetails, Typography, Grid, Link, Button, Box, Theme, useTheme, useMediaQuery
 } from "@material-ui/core";
 // import Page from "src/components/page.component";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -100,6 +100,8 @@ function Proposal(props: any) {
   const i18n = useI18n();
   const {proposal, currentBlock, votingStatus, loading, onVoteFor, onVoteAgainst,} = props;
   const [currentTime] = React.useState(Date.now());
+  const theme = useTheme();
+  const upMd = useMediaQuery(theme.breakpoints.up('md'));
 
   const blocksTillEnd = proposal.end - currentBlock
   const blocksSinceStart = currentBlock - proposal.start
@@ -107,26 +109,28 @@ function Proposal(props: any) {
   const endTime = currentTime + (blocksTillEnd * 1000 * 13.8)
   const startTime = currentTime - (blocksSinceStart * 1000 * 13.8)
 
-  // todo
-  const yipURL = `https://yips.yearn.finance/YIPS/yip-${proposal.id}`;
+  const pipURL = `https://forum.plouto.finance/pips/${proposal.id}`;
 
   var address = null;
   if (proposal.executor) {
     address = proposal.executor.substring(0, 8) + '...' + proposal.executor.substring(proposal.executor.length - 6, proposal.executor.length)
   }
   // todo
-  const hashURL = proposal.hash
+  const hashURL = `https://forum.plouto.finance/${proposal.hash}`; //proposal.hash
   const showBtn = proposal.end > currentBlock && votingStatus;
+
 
   return (
       <Box className={classes.root}>
         <div className={classes.line}/>
-        <Grid container>
+        <Grid container style={{
+          paddingRight: upMd ? 36 : 0
+        }}>
           <Grid item container xs={12} sm={12} md={9}>
             <Grid item xs={12} sm={2} md={3} className={classes.itemBox}>
 
               <div className={classes.itemContent}>
-                <Link href={yipURL} className={classes.itemTitle} target="_blank">YIP</Link>
+                <Link href={pipURL} className={classes.itemTitle} target="_blank">PIP</Link>
               </div>
 
               <div className={classes.itemContent}>
@@ -136,7 +140,7 @@ function Proposal(props: any) {
             <Grid item xs={12} sm={5} md={5} className={classes.itemBox}>
               <div className={classes.itemContent}>
                 <Typography className={classes.itemTitle} variant={'h3'}> {address} </Typography>
-                <Typography variant={'h5'} className={classes.itemLabel}> {i18n.t('vote.proposer')}</Typography>
+                <Typography variant={'h5'} className={classes.itemLabel}> {i18n.t('vote.executor')}</Typography>
               </div>
               <div className={classes.itemContent}>
                 <Typography className={classes.itemTitle} variant={'h3'}>
@@ -160,7 +164,7 @@ function Proposal(props: any) {
                             variant={'h3'}> {moment(endTime).format("YYYY/MM/DD kk:mm")} </Typography>
                 <Typography variant={'h5'} className={classes.itemLabel}>
                   <span>{i18n.t('vote.voteEnd')}:</span>
-                  {proposal.start}
+                  {proposal.end}
                 </Typography>
               </div>
             </Grid>

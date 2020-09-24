@@ -94,7 +94,6 @@ const useStyles = makeStyles((theme) => ({
 
 function WhitelistItem(props: any) {
   const {whitelistObj, onClick} = props
-  console.log('whitelistObj', whitelistObj);
   const classes = useStyles();
   const {name, id, source, apy, discussCount, forumUrl, disabled} = whitelistObj;
   let count = discussCount > 100 ? 99 : discussCount;
@@ -159,8 +158,8 @@ function VaultList(props: VaultListType) {
           <Grid item xs={3}>{i18n.t('smallVault.discuss')}</Grid>
         </Grid>
         <Box className={classes.listContent}>
-          {vaultListData.map((whitelistObj: any) => (
-              <WhitelistItem whitelistObj={whitelistObj} onClick={onItemClick}/>
+          {vaultListData.map((whitelistObj: any, i:number) => (
+              <WhitelistItem whitelistObj={whitelistObj} onClick={onItemClick} key={i}/>
           ))}
         </Box>
       </Box>

@@ -147,11 +147,11 @@ export default function TransitionsModal(prop:Props) {
   const { account, activate, chainId, deactivate } = useWeb3React();
 
   const handleConnect = () => {
-    activate(connectorsByName.MetaMask, (error) => console.log(error)).then(() => { handleClose() })
+    activate(connectorsByName.MetaMask, (error) => {}).then(() => { handleClose() })
   };
 
   const handleConnectLedger = () => {
-    activate(connectorsByName.Ledger, (error) => console.log(error));
+    activate(connectorsByName.Ledger, (error) => {});
   };
 
   const handleDisconnect = () => {

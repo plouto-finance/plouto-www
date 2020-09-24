@@ -15,7 +15,6 @@ import {ThunkDispatch} from "redux-thunk";
 import {Action} from "redux";
 import {all} from "async";
 import colors from "src/theme/colors";
-import {count} from "console";
 import {useI18n} from 'src/i18n';
 import clsx from 'clsx';
 
@@ -247,10 +246,8 @@ function AssetsActionView(props: any) {
                   allOkText={i18n.t('depositAll')}
                   onCountChange={setAmount}
                   onCountOk={() => {
-                    console.log('count ok')
                   }}
                   onCountAllOk={() => {
-                    console.log('count ok all')
                   }}
               />
             </Box>
@@ -267,10 +264,8 @@ function AssetsActionView(props: any) {
                   allOkText={i18n.t('withdrawAll')}
                   onCountChange={setRedeemAmount}
                   onCountOk={() => {
-                    console.log('count ok')
                   }}
                   onCountAllOk={() => {
-                    console.log('count ok all')
                   }}
               />
             </Box>

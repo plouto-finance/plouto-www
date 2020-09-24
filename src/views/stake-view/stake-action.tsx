@@ -125,7 +125,6 @@ function StackActionView(props: any) {
   const { account } = web3React;
 
   const stake = props.stake;
-  console.log(props.BPTLPRequirements)
   const [loading, setLoading] = React.useState(false);
   const [amount, setAmount] = React.useState("");
   const [amountError, setAmountError] = React.useState(false);
@@ -153,9 +152,7 @@ function StackActionView(props: any) {
   const onStakeAll = async () => {
     if (account) {
       setLoading(true);
-      let r = await dispatch(
-        unstakeCall(web3React, stake, account, stake.balance + "")
-      );
+      let r = await dispatch(stakeCall(web3React, stake, account, stake.balance + ""));
       showMessage(r);
       setLoading(false);
     }
@@ -172,11 +169,8 @@ function StackActionView(props: any) {
 
   const onUnstakeAll = async () => {
     if (account) {
-      console.log(stake.stakedBalance);
       setLoading(true);
-      let r = await dispatch(
-        unstakeCall(web3React, stake, account, stake.stakedBalance + "")
-      );
+      let r = await dispatch(unstakeCall(web3React, stake, account, stake.stakedBalance + ""));
       showMessage(r);
       setLoading(false);
     }
@@ -249,7 +243,7 @@ function StackActionView(props: any) {
         <TextField
           fullWidth
           className={classes.actionInput}
-          id="a"
+          id={stake.id + 'a'}
           value={amount}
           error={amountError}
           onChange={onChangeAmount}
@@ -325,7 +319,7 @@ function StackActionView(props: any) {
         <TextField
           fullWidth
           className={classes.actionInput}
-          id="ua"
+          id={stake.id + 'ua'}
           value={uamount}
           error={uamountError}
           onChange={onChangeUAmount}
@@ -387,7 +381,7 @@ function StackActionView(props: any) {
             className={classes.actionButton}
             variant="outlined"
             color="primary"
-            disabled={loading || (props.poolName =='POOL 3' && (!props.BPTLPRequirements.balanceValid || !props.BPTLPRequirements.voteLockValid))}
+            disabled={loading || (props.poolName =='POOL 3')} 
             onClick={onExit}
             fullWidth
           >

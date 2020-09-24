@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   makeStyles,
   Accordion,
@@ -11,6 +11,10 @@ import colors from "src/theme/colors";
 import { useI18n } from "src/i18n";
 import StackAction from "./stake-action";
 import ExpandMore from "src/components/expand.compoent";
+import { useDispatch } from "react-redux";
+import { Action } from "redux";
+import { ThunkDispatch } from "redux-thunk";
+import { getTokenPrice } from "src/actions/tools";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -106,6 +110,7 @@ const useStyles = makeStyles((theme) => ({
   headingEarning: {
     flex: 1,
     justifyContent: "flex-end",
+    color: colors.rateRed,
     [theme.breakpoints.down("sm")]: {
       display: "block",
       justifyContent: "flex-end",
@@ -232,8 +237,16 @@ function StacksView(props: any) {
   const i18n = useI18n();
   let classes = useStyles();
   let stake = props.stake;
+  let PLUPrice = props.PLUPrice;
   const handleChange = props.handleChange;
   const expanded = props.expanded;
+
+  const [apy, setApy] = useState(0);
+
+  React.useEffect(() => {
+    setApy(stake.apy * PLUPrice)
+  }, [stake.apy]);
+
   return (
     <Accordion
       className={classes.expansionPanel}
@@ -273,7 +286,10 @@ function StacksView(props: any) {
           {!["LINK"].includes(stake.id) && (
             <Grid item xs={12} sm={5} md={3} className={classes.heading}>
               <Typography variant={"h5"} noWrap>
-                {stake.balance ? stake.balance.toFixed(4) : "0.0000"} {stake.symbol}
+                {stake.balance
+                  ? stake.balance.toFixed(5).slice(0, -1)
+                  : "0.0000"}{" "}
+                {stake.symbol}
               </Typography>
               <Typography variant={"h5"} className={classes.grey}>
                 {i18n.t("stake.yourBalance")}
@@ -283,22 +299,35 @@ function StacksView(props: any) {
           {!["LINK"].includes(stake.id) && (
             <Grid item xs={12} sm={5} md={3} className={classes.heading}>
               <Typography variant={"h5"} noWrap>
-                {stake.stakedBalance ? stake.stakedBalance.toFixed(4) : "0.0000"}{" "}
-                {stake.symbol}
+                {stake.stakedBalance
+                  ? stake.stakedBalance.toFixed(5).slice(0, -1)
+                  : "0.0000"}{" "}
+                {stake.ymbol}
               </Typography>
               <Typography variant={"h5"} className={classes.grey}>
                 {i18n.t("stake.currentlyStaked")}
               </Typography>
             </Grid>
           )}
-          <Grid item xs={6} sm={5} md={3} className={classes.headingEarning}>
+          <Grid item xs={6} sm={5} md={3} className={classes.heading}>
             <Typography variant={"h5"} noWrap>
               {stake.rewardsSymbol == "$" ? stake.rewardsSymbol : ""}{" "}
-              {stake.rewardsAvailable ? stake.rewardsAvailable.toFixed(4) : "0.0000"}{" "}
+              {stake.rewardsAvailable
+                ? stake.rewardsAvailable.toFixed(5).slice(0, -1)
+                : "0.0000"}{" "}
               {stake.rewardsSymbol != "$" ? stake.rewardsSymbol : ""}
             </Typography>
             <Typography variant={"h5"} className={classes.grey}>
               {i18n.t("stake.rewardsAvailable")}
+            </Typography>
+          </Grid>
+          <Grid item xs={6} sm={5} md={3} className={classes.headingEarning}>
+            <Typography variant={"h5"} noWrap>
+              {apy ? apy.toFixed(5).slice(0, -1) + "%"
+                : "-"}{" "}
+            </Typography>
+            <Typography variant={"h5"} className={classes.grey}>
+              {i18n.t("vault.vaultEarning")}
             </Typography>
           </Grid>
         </Grid>

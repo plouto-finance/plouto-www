@@ -42,6 +42,11 @@ const routesConfig = [
       },
       {
         exact: true,
+        path: '/stake/:pool',
+        component: StakeView,
+      },
+      {
+        exact: true,
         path: '/stake',
         component: StakeView,
       },

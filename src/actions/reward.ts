@@ -45,6 +45,33 @@ const getRewardsAvailable = async (web3: Web3, asset: any, address: string, call
   }
 };
 
+const getRewardPerToken = async (web3: Web3, asset: any, address: string, callback: any) => {
+  const erc20Contract = new web3.eth.Contract(asset.rewardsABI, asset.rewardsAddress);
+
+  try {
+    const rewardPerToken = await erc20Contract.methods.rewardPerToken().call({ from: address });
+    const rewardRate = await erc20Contract.methods.rewardRate().call({ from: address })
+    const totalSupply = await erc20Contract.methods.totalSupply().call({ from: address })
+    callback(null, parseFloat(rewardPerToken) / (10 ** asset.rewardsDecimals));
+  } catch (e) {
+    return callback(e);
+  }
+};
+
+const getApy = async (web3: Web3, asset: any, address: string, callback: any) => {
+  const erc20Contract = new web3.eth.Contract(asset.rewardsABI, asset.rewardsAddress);
+
+  try {
+    const rewardRate = await erc20Contract.methods.rewardRate().call({ from: address })
+    const totalSupply = await erc20Contract.methods.totalSupply().call({ from: address })
+    callback(null, totalSupply <= 0 ? 0 : parseFloat(rewardRate)  / parseFloat(totalSupply) * 31536000)
+  } catch (e) {
+    return callback(e);
+  }
+};
+
+
+
 const checkApproval = async (
   web3: Web3,
   asset: any,
@@ -256,7 +283,9 @@ export function getRewardBalances(web3React: any, address: string) {
         async.parallel([
           (callbackInnerInner) => { getERC20Balance(web3, token, address, callbackInnerInner) },
           (callbackInnerInner) => { getStakedBalance(web3, token, address, callbackInnerInner) },
-          (callbackInnerInner) => { getRewardsAvailable(web3, token, address, callbackInnerInner) }
+          (callbackInnerInner) => { getRewardsAvailable(web3, token, address, callbackInnerInner) },
+          (callbackInnerInner) => { getRewardPerToken(web3, token, address, callbackInnerInner) },
+          (callbackInnerInner) => { getApy(web3, token, address, callbackInnerInner) },
         ], (error, data: any) => {
           if (error) {
             return callbackInner(error);
@@ -265,6 +294,8 @@ export function getRewardBalances(web3React: any, address: string) {
           token.balance = data[0];
           token.stakedBalance = data[1];
           token.rewardsAvailable = data[2];
+          token.rewardPerToken = data[3];
+          token.apy = data[4];
 
           callbackInner(null, token);
         })

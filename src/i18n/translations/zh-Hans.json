@@ -17,7 +17,7 @@
   "vault": {
     "vaultEarning": "回报率",
     "vaultBalance": "pToken数量",
-    "availableDeposit": "已存入",
+    "availableDeposit": "预计可提取",
     "deposit": "存入",
     "withdraw": "提取",
     "depositAll": "存入全部",
@@ -26,14 +26,14 @@
     "yourEarningRate": "回报率"
   },
   "stake": {
-    "title": "YFII-创新型去中心化defi矿池",
+    "title": "Plouto Pool",
     "subtitle": "Pool2抵押方式与Balancer使用说明",
     "wallet": "钱包",
     "yourBalance": "您的余额",
     "currentlyStaked": "当前抵押",
     "halfTime": "减半时间",
     "rewardsAvailable": "已获得奖励",
-    "yCRVRewardRequirements": "yCRV 奖励要求",
+    "yCRVRewardRequirements": "PLU 奖励要求",
     "youMustHaveVoted": "You must have voted in a proposal recently",
     "youMustHave": "您必须在治理池中抵押至少 1000 个 BPT。",
     "stakeTokens": "抵押代币",

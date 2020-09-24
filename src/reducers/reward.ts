@@ -15,7 +15,8 @@ const initialState = {
       tokens: [
         {
           id: 'pDAI',
-          address: '0x5075A70F5C86a4132E57fcEA857C0C1d87e43093',
+          address: '0x43c8fEA2d75639182f0426b04C89C15b43F39670',
+          erc20address: '0x6b175474e89094c44da98b954eedeac495271d0f',
           symbol: 'pDAI',
           abi: config.erc20ABI,
           decimals: 18,
@@ -25,11 +26,29 @@ const initialState = {
           rewardsDecimals: 18,
           balance: 0,
           stakedBalance: 0,
-          rewardsAvailable: 0
+          rewardsAvailable: 0,
+          rewardPerToken: 0
+        },
+        {
+          id: 'pUSDC',
+          address: '0x8439db02ade250c28f29b7A41d835E7F59D45d0C',
+          erc20address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+          symbol: 'pUSDC',
+          abi: config.erc20ABI,
+          decimals: 6,
+          rewardsAddress: config.pUSDCRewardsAddress,
+          rewardsABI: config.pUSDCRewardsABI,
+          rewardsSymbol: 'PLU',
+          rewardsDecimals: 18,
+          balance: 0,
+          stakedBalance: 0,
+          rewardsAvailable: 0,
+          rewardPerToken: 0
         },
         {
           id: 'pUSDT',
-          address: '0xD2fA9DaA3be5B30913b883fD76d27eF3e4cB351c',
+          address: '0x1a4c24a7F2b03bed092c51aCFE7630F8442B15B4',
+          erc20address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
           symbol: 'pUSDT',
           abi: config.erc20ABI,
           decimals: 6,
@@ -39,7 +58,88 @@ const initialState = {
           rewardsDecimals: 18,
           balance: 0,
           stakedBalance: 0,
-          rewardsAvailable: 0
+          rewardsAvailable: 0,
+          rewardPerToken: 0
+        },
+        {
+          id: 'pyCRV',
+          address: '0xDe379D502efbc2d075E03939864ede17c1bE75F2',
+          erc20address: '0xdf5e0e81dff6faf3a7e52ba697820c5e32d806a8',
+          symbol: 'pyCRV',
+          abi: config.erc20ABI,
+          decimals: 18,
+          rewardsAddress: config.pyCRVRewardsAddress,
+          rewardsABI: config.pyCRVRewardsABI,
+          rewardsSymbol: 'PLU',
+          rewardsDecimals: 18,
+          balance: 0,
+          stakedBalance: 0,
+          rewardsAvailable: 0,
+          rewardPerToken: 0
+        },
+        {
+          id: 'pETH/DAI LP',
+          address: '0x263393Cf444Ee3F9A7Bd4C555FF8E058199AE78e',
+          erc20address: '0xa478c2975ab1ea89e8196811f51a7b7ade33eb11',
+          symbol: 'pETH/DAI LP',
+          abi: config.erc20ABI,
+          decimals: 18,
+          rewardsAddress: config.pUniETHDAILPRewardsAddress,
+          rewardsABI: config.pUniETHDAILPRewardsABI,
+          rewardsSymbol: 'PLU',
+          rewardsDecimals: 18,
+          balance: 0,
+          stakedBalance: 0,
+          rewardsAvailable: 0,
+          rewardPerToken: 0
+        },
+        {
+          id: 'pETH/USDC LP',
+          address: '0xa6dA33FbF799Dd04CFEa878334A7984AC9dd55BD',
+          erc20address: '0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc',
+          symbol: 'pETH/USDC LP',
+          abi: config.erc20ABI,
+          decimals: 18,
+          rewardsAddress: config.pUniETHUSDCLPRewardsAddress,
+          rewardsABI: config.pUniETHUSDCLPRewardsABI,
+          rewardsSymbol: 'PLU',
+          rewardsDecimals: 18,
+          balance: 0,
+          stakedBalance: 0,
+          rewardsAvailable: 0,
+          rewardPerToken: 0
+        },
+        {
+          id: 'pETH/USDT LP',
+          address: '0x5D1939bD8E7Ad347ca246D681ce6075EaBDE4eb4',
+          erc20address: '0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852',
+          symbol: 'pETH/USDT LP',
+          abi: config.erc20ABI,
+          decimals: 18,
+          rewardsAddress: config.pUniETHUSDTLPRewardsAddress,
+          rewardsABI: config.pUniETHUSDTLPRewardsABI,
+          rewardsSymbol: 'PLU',
+          rewardsDecimals: 18,
+          balance: 0,
+          stakedBalance: 0,
+          rewardsAvailable: 0,
+          rewardPerToken: 0
+        },
+        {
+          id: 'pETH/WBTC LP',
+          address: '0x722Fbb7983378E5d69a6D6F6Ea69E829C21b49DD',
+          erc20address: '0xbb2b8038a1640196fbe3e38816f3e67cba72d940',
+          symbol: 'pETH/WBTC LP',
+          abi: config.erc20ABI,
+          decimals: 18,
+          rewardsAddress: config.pUniETHWBTCLPRewardsAddress,
+          rewardsABI: config.pUniETHWBTCLPRewardsABI,
+          rewardsSymbol: 'PLU',
+          rewardsDecimals: 18,
+          balance: 0,
+          stakedBalance: 0,
+          rewardsAvailable: 0,
+          rewardPerToken: 0
         }
       ]
     },
@@ -62,7 +162,8 @@ const initialState = {
           rewardsDecimals: 18,
           balance: 0,
           stakedBalance: 0,
-          rewardsAvailable: 0
+          rewardsAvailable: 0,
+          rewardPerToken: 0
         }
       ]
     },
@@ -85,7 +186,8 @@ const initialState = {
           rewardsDecimals: 18,
           balance: 0,
           stakedBalance: 0,
-          rewardsAvailable: 0
+          rewardsAvailable: 0,
+          rewardPerToken: 0
         }
       ]
     }

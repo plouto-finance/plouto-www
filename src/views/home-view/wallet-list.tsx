@@ -19,9 +19,6 @@ const useStyles = makeStyles((theme) => ({
   walletList: {
     maxWidth: 584,
     overflowX: "hidden",
-    // [theme.breakpoints.up('md')]: {
-    //   width: 584
-    // },
   },
   walletItem: {
     width: 280,
@@ -61,22 +58,6 @@ const useStyles = makeStyles((theme) => ({
       }
     },
   },
-  // disconnect: {
-  //   width: 280,
-  //   backgroundColor: 'white',
-  //   borderRadius: 4,
-  //   padding: '6px 15px 0',
-  //   margin: '6px auto',
-  //   cursor: 'pointer',
-  //   border: '1px solid #E0E0E0',
-  //   height: 54,
-  //   textAlign: 'center',
-  //   lineHeight: '42px',
-  //   color: '#C86B63',
-  //   "&:hover": {
-  //     boxShadow: '0px 2px 6px 2px #9082C3'
-  //   },
-  // }
 }));
 
 // mock 钱包数据
@@ -169,11 +150,6 @@ const WalletList = (prop: Props) => {
           )
         })
       }
-      {/* {account && showdisconnect && <Grid item xs={12} sm={6} md={6}>
-        <div className={classes.disconnect} onClick={handleDisconnect}>
-          {i18n.t("home.disconnet")}
-        </div>
-      </Grid>} */}
     </Grid>
   )
 }

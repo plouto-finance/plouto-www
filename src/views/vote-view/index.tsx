@@ -172,7 +172,6 @@ function VoteView(props: any) {
     proposals,
     voting: votingStatus
   } = voteState;
-  console.log('proposals', proposals);
 
   let now = voteState.currentBlock;
   // if (now) {
@@ -208,7 +207,6 @@ function VoteView(props: any) {
 
   const stopPropagation = (event: React.SyntheticEvent) => {
     event.stopPropagation();
-    event.preventDefault()
   }
   const onGtVoteStatus = async () => {
     if (account) {
@@ -268,15 +266,14 @@ function VoteView(props: any) {
           </div>
       )
     }
-    // todo
-    const EtherscanUrl = ''
 
     return filteredProposals.map((proposal) => {
       let address = null;
       if (proposal.proposer) {
         address = getShowNameOfUser(proposal.proposer)
       }
-
+      // todo
+      const EtherscanUrl = `https://etherscan.io/address/${proposal.proposer}`
       return (
           <Accordion square key={proposal.id + "_expand"}>
             <AccordionSummary
@@ -291,7 +288,8 @@ function VoteView(props: any) {
                   <Typography variant={'h5'} className={classes.itemLabel}>&nbsp;</Typography>
                 </Grid>
                 <Grid item xs={12} sm={6} md={4} className={classes.itemBox}>
-                  <Link href={EtherscanUrl} onClick={stopPropagation} className={classes.itemTitle}>{address}</Link>
+                  <Link href={EtherscanUrl} target="_blank" onClick={stopPropagation}
+                        className={classes.itemTitle}>{address}</Link>
                   <Typography variant={'h5'} className={classes.itemLabel}>{i18n.t('vote.proposer')}</Typography>
                 </Grid>
                 <Grid item xs={12} sm={6} md={3} className={classes.itemBox}>

@@ -261,7 +261,7 @@ function AssetsView(props: any) {
           </div>
           <div className={classes.heading}>
             <Typography variant={"h5"} noWrap>
-              {(asset.balance ? asset.balance.toFixed(4) : "0.0000") +
+              {(asset.balance ? asset.balance.toFixed(5).slice(0,-1) : "0.0000") +
                 " " +
                 asset.symbol}
             </Typography>
@@ -271,7 +271,7 @@ function AssetsView(props: any) {
           </div>
           <div className={classes.heading}>
             <Typography variant={"h5"} noWrap>
-              {(asset.vaultBalance ? asset.vaultBalance.toFixed(4) : "0.0000") +
+              {(asset.vaultBalance ? asset.vaultBalance.toFixed(5).slice(0,-1) : "0.0000") +
                 " " +
                 asset.vaultSymbol}
             </Typography>
@@ -287,7 +287,7 @@ function AssetsView(props: any) {
                     Math.floor(
                       asset.vaultBalance * asset.pricePerFullShare * 10000
                     ) / 10000
-                  ).toFixed(4)
+                  ).toFixed(5).slice(0,-1)
                 : "0.0000") +
                 " " +
                 asset.symbol}
@@ -299,7 +299,7 @@ function AssetsView(props: any) {
           {!["LINK"].includes(asset.id) && (
             <div className={classes.headingEarning}>
               <Typography variant={"h5"} noWrap>
-                {asset.apy ? asset.apy.toFixed(4) : "0.0000"}%{" "}
+                {asset.apy  && asset.apy < Number.MAX_SAFE_INTEGER && asset.apy > 0 ? asset.apy.toFixed(5).slice(0,-1) + "%" : "-"}{" "}
               </Typography>
               <Typography variant={"h5"} className={classes.grey}>
                 {i18n.t("vault.vaultEarning")}

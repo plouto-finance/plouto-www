@@ -186,9 +186,6 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: 400,
       color: '#fff',
       width: 132,
-      // "&:hover":{
-      //   backgroundColor: '#9082C3'
-      // }
     }
   },
   lanChecked: {
@@ -309,17 +306,6 @@ function HomeView(props: object) {
           <p>{i18n.t("home.use")}</p>
           <ArrowRightAlt />
         </div>
-        {/* <div className={classes.agree}>
-            {i18n.t("home.agree")}
-            <span>{i18n.t("home.items")}</span>,
-            <span>{i18n.t("home.privacy")}</span>
-            {i18n.t("home.and")}
-            <span>{i18n.t("home.cookie")}</span>
-          </div> */}
-        {/* <div className={classes.prompt}>
-            {i18n.t("home.prompt")}
-          </div> */}
-        {/* <Wallet></Wallet> */}
       </div>
     </div>
   );

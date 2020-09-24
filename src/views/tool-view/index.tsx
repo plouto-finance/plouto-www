@@ -16,13 +16,14 @@ import {
 } from "@material-ui/core";
 import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab";
 import colors from "src/theme/colors";
-import { getTokenPrice } from "src/actions/tools";
+import { getTokenPrice, getTokenUSDPrice } from "src/actions/tools";
 import { ThunkDispatch } from "redux-thunk";
 import { Action } from "redux";
 import { useDispatch, useSelector } from "react-redux";
-import { getVaultBalances } from 'src/actions/vault';
+import { getVaultBalances } from "src/actions/vault";
 import { useWeb3React } from "@web3-react/core";
 import { RootState } from "src/reducers";
+import { iteratorSymbol } from "immer/dist/internal";
 
 const useStyles = makeStyles((theme) => ({
   tool: {
@@ -72,6 +73,9 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiTableCell-head": {
       color: "#666",
     },
+    "& .MuiTableRow-head th": {
+      fontWeight: "bold",
+    },
   },
   red: {
     color: "#C86B63",
@@ -81,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
 // 金额千分位
 const moneyFormat = (num: string | number) => {
   return Number(num)
-    .toFixed(2)
+    .toFixed(4)
     .replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 };
 
@@ -90,39 +94,54 @@ export default function ToolView() {
   const i18n = useI18n();
   const theme = useTheme();
   const dispatch: ThunkDispatch<any, null, Action<string>> = useDispatch();
-  // const upSm = useMediaQuery(theme.breakpoints.up("sm"));
   const [sort, setSort] = React.useState("totalSum");
   const web3React = useWeb3React();
   const { account } = web3React;
   const assetsList = useSelector((state: RootState) => state.vault.vaultAssets);
-
   const [aList, setAList] = React.useState(assetsList);
+  const [loading, setLoading] = React.useState(true);
+  const [totalNum, setTotalNum] = React.useState(0);
 
   React.useEffect(() => {
     if (account) dispatch(getVaultBalances(web3React, account));
   }, [account]);
 
   // DAI value
-  React.useEffect(()=>{
-    if(account){
-      if(assetsList.length){
-        for(let i = 0; i< assetsList.length; i++){
-            dispatch(getTokenPrice(assetsList[i].erc20address, assetsList[i].decimals)).then((r) => {
-                const p: number = +r.price * +r.ethprice
-                assetsList[i].price = p
-                // 个人
-                assetsList[i].value = (p * assetsList[i].vaultBalance).toFixed(2);
-                // 总额
-                assetsList[i].totalValue = (p * assetsList[i].total).toFixed(2)
-                setAList([...assetsList])
-              }
-            ).catch((e: any) => {
-              console.log(assetsList[i].erc20address,e)
-            })   
+  React.useEffect(() => {
+    if (account) {
+      if (assetsList.length) {
+        let ads = [];
+        let list = [] as any;
+        let money = 0;
+        for (let i = 0; i < assetsList.length; i++) {
+          ads.push(assetsList[i].erc20address);
         }
+        dispatch(getTokenUSDPrice(ads.join(",")))
+          .then((prices) => {
+            for (let i = 0; i < assetsList.length; i++) {
+              let cur = {
+                ...assetsList[i]
+              }
+              cur.price = 1;
+              if (prices[cur.erc20address]) {
+                cur.price = prices[cur.erc20address].usd;
+              }
+              let p = cur.price;
+              cur.value = (p * cur.vaultBalance).toFixed(4);
+              cur.totalValue = (p * cur.total).toFixed(4);
+              list.push(cur)
+              money = money + Number(cur.totalValue);
+            }
+            setAList(list); 
+            setTotalNum(money)  
+            setLoading(false)   
+          })
+          .catch((e) => {
+            // console.log(e);
+          });
       }
     }
-  }, [])
+  }, []);
 
   const handleAlignment = (
     event: React.MouseEvent<HTMLElement>,
@@ -130,13 +149,11 @@ export default function ToolView() {
   ) => {
     setSort(newSort);
   };
-  
-  const getTotalSum = ()=>{
-    let num = 0;
-    assetsList.map((item)=>{
-      num += Number(item.totalValue || 0)
-    })
-    return num
+
+  // 获取展示内容
+  const getText = ( data: any)=>{
+    let num = Number(Number(data).toFixed(5));
+    return (num && (num < Number.MAX_SAFE_INTEGER) && num > 0)?moneyFormat(num.toFixed(5).slice(0,-1)): "-"
   }
 
   return (
@@ -145,7 +162,9 @@ export default function ToolView() {
         <div className={classes.tool}>
           <h3>
             <span>{i18n.t("tool.global value")}:</span>{" "}
-            <span>$ {moneyFormat(getTotalSum())}</span>
+            <span>
+              {loading ? "Loading..." : `$ ${moneyFormat(totalNum)}`}
+            </span>
           </h3>
           <div>
             <ToggleButtonGroup
@@ -153,7 +172,6 @@ export default function ToolView() {
               exclusive
               onChange={handleAlignment}
               aria-label="text alignment"
-              // size={upSm ? 'medium' : 'small'}
               size="small"
             >
               <ToggleButton value="totalSum" aria-label="left aligned">
@@ -181,10 +199,28 @@ export default function ToolView() {
                   {aList.map((row: any, index: number) => (
                     <TableRow key={index}>
                       <TableCell align="center">{row.id}</TableCell>
-                      <TableCell align="center">{sort==='personal'?Number(row.vaultBalance).toFixed(2):Number(row.total).toFixed(2)}</TableCell>
-                      <TableCell align="center">{sort==='personal'?(row.value || 0):(row.totalValue || 0)}</TableCell>
                       <TableCell align="center">
-                        <span className={classes.red}>{Number(row.apy).toFixed(2)}</span> %
+                        {loading
+                          ? "Loading..."
+                          : sort === "personal"
+                          ? getText(row.vaultBalance)
+                          : getText(row.total)}
+                      </TableCell>
+                      <TableCell align="center">
+                        {loading
+                          ? "Loading..."
+                          : sort === "personal"
+                          ? (getText(row.value)==='-'?'-':`$ ${getText(row.value)}`)
+                          : (getText(row.totalValue)==='-'?'-':`$ ${getText(row.totalValue)}`)}
+                      </TableCell>
+                      <TableCell align="center">
+                        {loading ? (
+                          "Loading..."
+                        ) : (
+                          <span className={classes.red}>
+                            {(row.apy && row.apy < Number.MAX_SAFE_INTEGER && row.apy > 0)?row.apy.toFixed(5).slice(0,-1) + " %" : "-"}
+                          </span>
+                        )}
                       </TableCell>
                     </TableRow>
                   ))}

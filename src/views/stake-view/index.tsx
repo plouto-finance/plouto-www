@@ -12,7 +12,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import Stake from "./stake";
-import { Check, Clear } from '@material-ui/icons';
+import { Check, Clear } from "@material-ui/icons";
 
 import Loader from "../../components/loader.compoent";
 import { getRewardBalances, getBPTLPRequirements } from "src/actions/reward";
@@ -24,36 +24,39 @@ import colors from "src/theme/colors";
 import { ThunkDispatch } from "redux-thunk";
 import { Action } from "redux";
 import { useI18n } from "src/i18n";
+import { getTokenPrice } from "src/actions/tools";
+import { HashRouter, Link, Router } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   warning: {
     backgroundColor: "#fff",
     padding: "12px 24px",
     margin: "12px 0",
-    border: "1px solid #e0e0e0"
+    border: "1px solid #e0e0e0",
   },
   grey: {
     color: colors.darkGray,
     display: "flex",
-    alignItems: 'center'
+    alignItems: "center",
   },
   pageBox: {
-    paddingTop: '70px',
-    [theme.breakpoints.down('md')]: {
-      paddingTop: '50px'
+    paddingTop: "70px",
+    [theme.breakpoints.down("md")]: {
+      paddingTop: "50px",
     },
-    [theme.breakpoints.down('sm')]: {
-      paddingTop: '30px'
+    [theme.breakpoints.down("sm")]: {
+      paddingTop: "30px",
     },
   },
   poolButton: {
-    [theme.breakpoints.down('sm')]: {
-      minWidth: '100px'
+    [theme.breakpoints.down("sm")]: {
+      minWidth: "100px",
     },
-  }
+  },
 }));
 
-function StackView() {
+function StackView(props:any) {
+  const pool = /^[123]$/.test(props.match.params.pool) ? parseInt(props.match.params.pool) - 1 : 0  
   const i18n = useI18n();
   const web3React = useWeb3React();
   const dispatch = useDispatch();
@@ -67,21 +70,41 @@ function StackView() {
   React.useEffect(() => {
     if (account) {
       dispatch(getRewardBalances(web3React, account));
-      thdispatch(getBPTLPRequirements(web3React, account)).then((result)=> {
+      thdispatch(getBPTLPRequirements(web3React, account)).then((result) => {
         setBalanceValid(result.balanceValid);
         setVoteLockValid(result.voteLockValid);
         setWithdrawValid(result.withdrawValid);
-        setBPTLPRequirements({...result})
-      })
+        setBPTLPRequirements({ ...result });
+      });
     }
   }, [account]);
 
+  const PLU = { erc20address: "", decimals: 18 };
+
+  const [PLUPrice, setPLUPrice] = React.useState(100);
+  React.useEffect(() => {
+    if (PLU.erc20address)
+      thdispatch(getTokenPrice(PLU.erc20address, PLU.decimals))
+        .then((r) => {
+          if (r) {
+            const p: number = +r.price * +r.ethprice;
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+  }, []);
 
   const poolsList = useSelector((state: RootState) => state.reward.rewardPools);
   const [expanded, setExpanded] = React.useState("");
-  const [currentPool, setCurrentPool] = React.useState(0);
+  const [currentPool, setCurrentPool] = React.useState(pool);
   const [loading] = React.useState(false);
-  const [stakes, setStakes] = React.useState(poolsList[currentPool].tokens);
+  const [stakes, setStakes] = React.useState(poolsList[pool].tokens);
+
+  React.useEffect(() => {
+    setCurrentPool(pool)
+    setStakes(poolsList[pool].tokens)
+  })
 
   const handleChange = (id: any) => {
     setExpanded(id == expanded ? "" : id);
@@ -93,7 +116,8 @@ function StackView() {
   ) => {
     if (value != null) {
       setCurrentPool(value);
-      setStakes(poolsList[value].tokens);
+      setStakes([...poolsList[value].tokens]);
+      props.history.push(`/stake/${value + 1}`)
     }
   };
 
@@ -129,13 +153,23 @@ function StackView() {
         {poolsList[currentPool].name == "POOL 3" && (
           <div className={classes.warning}>
             <Typography variant={"h4"} noWrap>
-              {i18n.t('stake.pluWarning')}
+              {i18n.t("stake.pluWarning")}
             </Typography>
             <Typography variant={"h5"} className={classes.grey}>
-              {i18n.t('stake.pluWarning1')} { voteLockValid ? <Check style={{ color: colors.green }} /> : <Clear style={{ color: colors.red }} /> }
+              {i18n.t("stake.pluWarning1")}{" "}
+              {voteLockValid ? (
+                <Check style={{ color: colors.green }} />
+              ) : (
+                <Clear style={{ color: colors.red }} />
+              )}
             </Typography>
             <Typography variant={"h5"} className={classes.grey}>
-              {i18n.t('stake.pluWarning2')} { balanceValid ? <Check style={{ color: colors.green }} /> : <Clear style={{ color: colors.red }} /> }
+              {i18n.t("stake.pluWarning2")}{" "}
+              {balanceValid ? (
+                <Check style={{ color: colors.green }} />
+              ) : (
+                <Clear style={{ color: colors.red }} />
+              )}
             </Typography>
           </div>
         )}
@@ -149,7 +183,7 @@ function StackView() {
                 handleChange={handleChange}
                 poolName={poolsList[currentPool].name}
                 BPTLPRequirements={BPTLPRequirements}
-
+                PLUPrice={PLUPrice}
               ></Stake>
             );
           })}
