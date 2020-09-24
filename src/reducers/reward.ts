@@ -111,7 +111,7 @@ const initialState = {
         },
         {
           id: 'pETH/USDT LP',
-          address: '0x5D1939bD8E7Ad347ca246D681ce6075EaBDE4eb4',
+          address: '0x77154Aa69e05e8a22B87A6E62Dc431FBb7312730',
           erc20address: '0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852',
           symbol: 'pETH/USDT LP',
           abi: config.erc20ABI,
