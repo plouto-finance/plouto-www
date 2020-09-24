@@ -150,21 +150,21 @@ const initialState = {
       link: 'https://pools.balancer.exchange/#/pool/0xd5b58830b159d86ddf229a0429817fc7d446b45c/',
       depositsEnabled: true,
       tokens: [
-        {
-          id: 'POOL2 BPT',
-          address: '0xd5b58830b159d86ddf229a0429817fc7d446b45c',
-          symbol: 'POOL2 BPT',
-          abi: config.erc20ABI,
-          decimals: 18,
-          rewardsAddress: config.bptRewardsAddress,
-          rewardsABI: config.bptRewardsABI,
-          rewardsSymbol: 'PLU',
-          rewardsDecimals: 18,
-          balance: 0,
-          stakedBalance: 0,
-          rewardsAvailable: 0,
-          rewardPerToken: 0
-        }
+        // {
+        //   id: 'POOL2 BPT',
+        //   address: '0xd5b58830b159d86ddf229a0429817fc7d446b45c',
+        //   symbol: 'POOL2 BPT',
+        //   abi: config.erc20ABI,
+        //   decimals: 18,
+        //   rewardsAddress: config.bptRewardsAddress,
+        //   rewardsABI: config.bptRewardsABI,
+        //   rewardsSymbol: 'PLU',
+        //   rewardsDecimals: 18,
+        //   balance: 0,
+        //   stakedBalance: 0,
+        //   rewardsAvailable: 0,
+        //   rewardPerToken: 0
+        // }
       ]
     },
     {
@@ -174,21 +174,21 @@ const initialState = {
       link: 'https://app.plouto.finance/',
       depositsEnabled: true,
       tokens: [
-        {
-          id: 'PLU',
-          address: '0x091D2CcF3A03cc1753DD0D62325AC5319213cb00',
-          symbol: 'PLU',
-          abi: config.erc20ABI,
-          decimals: 18,
-          rewardsAddress: config.governanceAddress,
-          rewardsABI: config.governanceABI,
-          rewardsSymbol: 'PLU',
-          rewardsDecimals: 18,
-          balance: 0,
-          stakedBalance: 0,
-          rewardsAvailable: 0,
-          rewardPerToken: 0
-        }
+        // {
+        //   id: 'PLU',
+        //   address: '0x091D2CcF3A03cc1753DD0D62325AC5319213cb00',
+        //   symbol: 'PLU',
+        //   abi: config.erc20ABI,
+        //   decimals: 18,
+        //   rewardsAddress: config.governanceAddress,
+        //   rewardsABI: config.governanceABI,
+        //   rewardsSymbol: 'PLU',
+        //   rewardsDecimals: 18,
+        //   balance: 0,
+        //   stakedBalance: 0,
+        //   rewardsAvailable: 0,
+        //   rewardPerToken: 0
+        // }
       ]
     }
   ]
