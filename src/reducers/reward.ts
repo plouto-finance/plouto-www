@@ -31,7 +31,7 @@ const initialState = {
         },
         {
           id: 'pUSDC',
-          address: '0x8439db02ade250c28f29b7A41d835E7F59D45d0C',
+          address: '0x0919C44A9d2aF9a3a4f2820598CA857bAb5eE8ea',
           erc20address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
           symbol: 'pUSDC',
           abi: config.erc20ABI,
