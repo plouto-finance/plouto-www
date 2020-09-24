@@ -152,7 +152,7 @@ function VaultDetail(props: VaultDetailType) {
               <span>{getShowNameOfUser(administratorAddress)}</span>
             </Grid>
             <Grid item container justify="center" xs={3} className={classes.baseItem}>
-              <span>{getShowNameOfUser(forumUrl, 15, 10)}</span>
+              <span>{getShowNameOfUser(forumUrl, 20, 10)}</span>
             </Grid>
           </Grid>
         </Box>
