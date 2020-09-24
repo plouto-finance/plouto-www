@@ -63,7 +63,7 @@ const initialState = {
         },
         {
           id: 'pyCRV',
-          address: '0xDe379D502efbc2d075E03939864ede17c1bE75F2',
+          address: '0x3445c9EF7862381622d74af109F5b095cfB8b6d3',
           erc20address: '0xdf5e0e81dff6faf3a7e52ba697820c5e32d806a8',
           symbol: 'pyCRV',
           abi: config.erc20ABI,
