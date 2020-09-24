@@ -127,7 +127,7 @@ const initialState = {
         },
         {
           id: 'pETH/WBTC LP',
-          address: '0x722Fbb7983378E5d69a6D6F6Ea69E829C21b49DD',
+          address: '0xdB00B80443BBea8221969B9b3209Bee8add0fE7d',
           erc20address: '0xbb2b8038a1640196fbe3e38816f3e67cba72d940',
           symbol: 'pETH/WBTC LP',
           abi: config.erc20ABI,
