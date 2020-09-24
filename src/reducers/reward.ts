@@ -95,7 +95,7 @@ const initialState = {
         },
         {
           id: 'pETH/USDC LP',
-          address: '0xa6dA33FbF799Dd04CFEa878334A7984AC9dd55BD',
+          address: '0xD301Fd38D2944559fce493e68949ca3adB6E0Ae1',
           erc20address: '0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc',
           symbol: 'pETH/USDC LP',
           abi: config.erc20ABI,
