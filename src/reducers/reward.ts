@@ -47,7 +47,7 @@ const initialState = {
         },
         {
           id: 'pUSDT',
-          address: '0x1a4c24a7F2b03bed092c51aCFE7630F8442B15B4',
+          address: '0xA385F753BaAae6E1D8c16fd03e069b04df624258',
           erc20address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
           symbol: 'pUSDT',
           abi: config.erc20ABI,
