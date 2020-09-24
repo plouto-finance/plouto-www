@@ -151,9 +151,9 @@ const initialState = {
       depositsEnabled: true,
       tokens: [
         // {
-        //   id: 'POOL2 BPT',
+        //   id: 'PLU/DAI BPT',
         //   address: '0xd5b58830b159d86ddf229a0429817fc7d446b45c',
-        //   symbol: 'POOL2 BPT',
+        //   symbol: 'Balancer BPT',
         //   abi: config.erc20ABI,
         //   decimals: 18,
         //   rewardsAddress: config.bptRewardsAddress,
