@@ -15,7 +15,7 @@ const initialState = {
       tokens: [
         {
           id: 'pDAI',
-          address: '0x43c8fEA2d75639182f0426b04C89C15b43F39670',
+          address: '0x751Be7DdECCb9Ece9DD29EaFEe8A53d3d7d5e0c4',
           erc20address: '0x6b175474e89094c44da98b954eedeac495271d0f',
           symbol: 'pDAI',
           abi: config.erc20ABI,
