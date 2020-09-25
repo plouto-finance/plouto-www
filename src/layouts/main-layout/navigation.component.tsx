@@ -194,6 +194,11 @@ export default function SwipeableTemporaryDrawer(props: Props) {
   const url:any = {
     "en-US":'https://plouto.oss-cn-hongkong.aliyuncs.com/audit/PloutoProtocol-Smart-Contract-Audit-Report.pdf',
     "zh-Hans":'https://plouto.oss-cn-hongkong.aliyuncs.com/audit/PloutoProtocol%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%A1%E8%AE%A1%E6%8A%A5%E5%91%8A.pdf'
+  };
+
+  const docsUrl: any = {
+    "en-US":'https://docs.plouto.finance/en/1.html',
+    "zh-Hans":'https://docs.plouto.finance/zh/1.html'
   }
 
   const toggleDrawer = (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -243,7 +248,7 @@ export default function SwipeableTemporaryDrawer(props: Props) {
         </List>
         <div className={classes.line}><Divider /></div>
         <div className={classes.othernNav}>
-          <a href="https://docs.plouto.finance" target="_blank">
+          <a href={docsUrl[curLan]} target="_blank">
             <ListItem button>
               <ListItemIcon>
                 <Description />
