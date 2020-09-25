@@ -14,6 +14,7 @@ import Wallet from "../../views/home-view/wallet-modal";
 import { Link as RouterLink } from "react-router-dom";
 import { useI18n } from 'src/i18n';
 import { history } from "src/app/app.component";
+import { useI18nLanguage } from 'src/i18n';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -157,6 +158,7 @@ export default function SwipeableTemporaryDrawer(props: Props) {
   const theme = useTheme();
   const { open, handleOpen } = props;
   const i18n = useI18n();
+  const curLan = useI18nLanguage();
 
   let path = history.location.pathname;
   // 菜单列表
@@ -185,13 +187,14 @@ export default function SwipeableTemporaryDrawer(props: Props) {
       title: i18n.t("menu.tool"),
       url: '/tool',
       src: toolIcon,
-    },
-    // {
-    //   title: i18n.t("menu.vote"),
-    //   url: '',
-    //   src: forumIcon
-    // }
+    }
   ];
+
+  //审计地址
+  const url:any = {
+    "en-US":'https://plouto.oss-cn-hongkong.aliyuncs.com/audit/PloutoProtocol-Smart-Contract-Audit-Report.pdf',
+    "zh-Hans":'https://plouto.oss-cn-hongkong.aliyuncs.com/audit/PloutoProtocol%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%A1%E8%AE%A1%E6%8A%A5%E5%91%8A.pdf'
+  }
 
   const toggleDrawer = (event: React.KeyboardEvent | React.MouseEvent) => {
     if (
@@ -248,7 +251,7 @@ export default function SwipeableTemporaryDrawer(props: Props) {
               <ListItemText primary="Docs" />
             </ListItem>
           </a>
-          <a href="" target="_blank">
+          <a href={url[curLan]} target="_blank">
             <ListItem button>
               <ListItemIcon>
                 <BorderColor />

@@ -89,6 +89,9 @@ const moneyFormat = (num: string | number) => {
     .replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 };
 
+// 黑名单，拿不到价格
+const blacklist = ['ETH/DAI LP','ETH/USDC LP','ETH/USDT LP','ETH/WBTC LP'];
+
 export default function ToolView() {
   const classes = useStyles();
   const i18n = useI18n();
@@ -101,7 +104,7 @@ export default function ToolView() {
   const [aList, setAList] = React.useState(assetsList);
   const [loading, setLoading] = React.useState(true);
   const [totalNum, setTotalNum] = React.useState(0);
-
+  
   React.useEffect(() => {
     if (account) dispatch(getVaultBalances(web3React, account));
   }, [account]);
@@ -122,13 +125,18 @@ export default function ToolView() {
               let cur = {
                 ...assetsList[i]
               }
-              cur.price = 1;
+              cur.price = 1.03;
               if (prices[cur.erc20address]) {
                 cur.price = prices[cur.erc20address].usd;
               }
               let p = cur.price;
               cur.value = (p * cur.vaultBalance).toFixed(4);
               cur.totalValue = (p * cur.total).toFixed(4);
+              // 过滤黑名单里的数据，若日后不需要直接删掉就可以
+              if(blacklist.includes(cur.id)){
+                cur.value = 0;
+                cur.totalValue = 0;
+              }
               list.push(cur)
               money = money + Number(cur.totalValue);
             }

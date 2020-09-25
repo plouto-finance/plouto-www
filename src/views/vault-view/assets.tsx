@@ -12,6 +12,8 @@ import ExpandMore from "src/components/expand.compoent";
 import colors from "src/theme/colors";
 import AssetAction from "./asset-action";
 import { useI18n } from "src/i18n";
+import { useSelector } from "react-redux";
+import { RootState } from "src/reducers";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -222,7 +224,9 @@ function AssetsView(props: any) {
   let asset = props.asset;
   const handleChange = props.handleChange;
   const expanded = props.expanded;
-
+  
+  // add stake apy
+  const apy = asset.apy + (props.reward ? props.reward : 0)
   let width: number = 1440;
 
   return (
@@ -299,7 +303,7 @@ function AssetsView(props: any) {
           {!["LINK"].includes(asset.id) && (
             <div className={classes.headingEarning}>
               <Typography variant={"h5"} noWrap>
-                {asset.apy  && asset.apy < Number.MAX_SAFE_INTEGER && asset.apy > 0 ? asset.apy.toFixed(5).slice(0,-1) + "%" : "-"}{" "}
+                {apy  && apy < Number.MAX_SAFE_INTEGER && apy > 0 ? apy.toFixed(5).slice(0,-1) + "%" : "-"}{" "}
               </Typography>
               <Typography variant={"h5"} className={classes.grey}>
                 {i18n.t("vault.vaultEarning")}

@@ -1,7 +1,7 @@
 /**
  * @format
  */
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Box,
@@ -16,6 +16,7 @@ import { useWeb3React } from "@web3-react/core";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "src/reducers";
 import { useI18n } from "src/i18n";
+import { getRewardBalances } from "src/actions/reward";
 
 const useStyles = makeStyles((theme) => ({
   filters: {
@@ -66,10 +67,34 @@ function VaultView() {
 
   const { account } = web3React;
 
-  const assetsList = useSelector((state: RootState) => state.vault.vaultAssets);
 
+  const PLU = { erc20address: "", decimals: 18 };
+
+  const [PLUPrice, setPLUPrice] = React.useState(100);
+  // React.useEffect(() => {
+  //   if (PLU.erc20address)
+  //     thdispatch(getTokenPrice(PLU.erc20address, PLU.decimals))
+  //       .then((r) => {
+  //         if (r) {
+  //           const p: number = +r.price * +r.ethprice;
+  //         }
+  //       })
+  //       .catch((e) => {
+  //         console.log(e);
+  //       });
+  // }, []);
+
+  const assetsList = useSelector((state: RootState) => state.vault.vaultAssets);
+  const poolsList = useSelector((state: RootState) => state.reward.rewardPools);
+
+  const [tokens, setTokens] = useState(poolsList[0].tokens);
   React.useEffect(() => {
-    if (account) dispatch(getVaultBalances(web3React, account));
+    if (account) {
+      dispatch(getVaultBalances(web3React, account));
+      dispatch(getRewardBalances(web3React, account));
+
+      setTokens(poolsList[0].tokens)
+    } 
   }, [account]);
 
   const [expanded, setExpanded] = React.useState(false)
@@ -83,8 +108,8 @@ function VaultView() {
     <Box className={classes.pageBox}>
       { loading && <Loader /> }
       {
-        assetsList.map(asset => {
-            return <Asset key={ asset.id } asset={ asset } expanded={ expanded } handleChange={ handleChange }></Asset>
+        assetsList.map((asset,index) => {
+            return <Asset key={ asset.id } asset={ asset } expanded={ expanded } reward={ tokens[index].apy * PLUPrice }   handleChange={ handleChange }></Asset>
         })
       }
     </Box>
