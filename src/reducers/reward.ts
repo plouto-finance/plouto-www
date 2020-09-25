@@ -124,22 +124,6 @@ const initialState = {
           stakedBalance: 0,
           rewardsAvailable: 0,
           rewardPerToken: 0
-        },
-        {
-          id: 'pETH/WBTC LP',
-          address: '0xdB00B80443BBea8221969B9b3209Bee8add0fE7d',
-          erc20address: '0xbb2b8038a1640196fbe3e38816f3e67cba72d940',
-          symbol: 'pETH/WBTC LP',
-          abi: config.erc20ABI,
-          decimals: 18,
-          rewardsAddress: config.pUniETHWBTCLPRewardsAddress,
-          rewardsABI: config.pUniETHWBTCLPRewardsABI,
-          rewardsSymbol: 'PLU',
-          rewardsDecimals: 18,
-          balance: 0,
-          stakedBalance: 0,
-          rewardsAvailable: 0,
-          rewardPerToken: 0
         }
       ]
     },
