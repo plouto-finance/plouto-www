@@ -46,10 +46,14 @@ const getTotal = async (web3: Web3, asset: any, callback: any) => {
     return callback(null, 0);
   }
 
-  const vaultContract = new web3.eth.Contract(asset.vaultContractABI, asset.vaultContractAddress);
-  let balance = await vaultContract.methods.balance().call();
-  balance = parseFloat(balance) / (10 ** asset.decimals);
-  callback(null, parseFloat(balance));
+  try {
+    const vaultContract = new web3.eth.Contract(asset.vaultContractABI, asset.vaultContractAddress);
+    let balance = await vaultContract.methods.balance().call();
+    balance = parseFloat(balance) / (10 ** asset.decimals);
+    callback(null, parseFloat(balance));
+  } catch (e) {
+    return callback(null, 0);
+  }
 };
 
 const getVaultAPY = async (web3: Web3, asset: any, address: string, callback: any) => {
