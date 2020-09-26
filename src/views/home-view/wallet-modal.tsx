@@ -8,7 +8,8 @@ import { useWeb3React } from "@web3-react/core";
 import { useDispatch } from "react-redux";
 import { useI18n } from 'src/i18n';
 import WalletList from "src/views/home-view/wallet-list";
-import { Close, ArrowDropUp } from '@material-ui/icons';
+import { Close, ArrowDropUp, FiberManualRecord } from '@material-ui/icons';
+import { translate } from "i18n-js";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,19 +35,20 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: 0,
       height: '46px',
       boxShadow: 'none',
+      display: 'inline-block',
+      padding: '0 24px',
       "&:hover": {
         boxShadow: '0px 0px 6px 6px rgba(225,225,225,.2)',
         background: 'white'
       },
       "& .MuiButton-label": {
         background: '-webkit-linear-gradient(111deg, #493889 0%, #CE380C 100%)',
-        // height: 46,
+        // height: 26,
         fontSize: 16,
         textFillColor: 'transparent',
         WebkitBackgroundClip: 'text',
         margin: 0,
-        // lineHeight: '46px',
-        lineHeight: '16px',
+        lineHeight: '46px',
       }
     },
     wbutton: {
@@ -75,7 +77,11 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 8,
       borderRadius: '50%',
       background: '#29B7AF',
-      marginRight: 6
+      marginRight: 6,
+      display: 'inline-block',
+      fontStyle: 'normal',
+      verticalAlign: 'middle',
+      transform: 'translateY(-2px)'
     },
     connected: {
       position: 'relative'
@@ -169,8 +175,8 @@ export default function TransitionsModal(prop:Props) {
             className={classes.button}
             onClick={handlePop}
           >
-            <span className={classes.dot} />
-            {account.substr(0, 6) + '...' + account.substr(account.length - 4, account.length)}
+            <i className={classes.dot} />
+            <span>{account.substr(0, 6) + '...' + account.substr(account.length - 4, account.length)}</span>
           </Button>
           {
             pop && <div className={classes.disconnect} onClick={handleClosePop}>

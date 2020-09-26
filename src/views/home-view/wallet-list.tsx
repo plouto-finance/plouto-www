@@ -124,7 +124,7 @@ const WalletList = (prop: Props) => {
     dispatch(
       showSnackbar({
         type: 'Error',
-        message: message,
+        message: message.message,
       })
     );
   };
