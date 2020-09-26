@@ -202,7 +202,9 @@ function VoteView(props: any) {
       return proposal.proposer != '0x0000000000000000000000000000000000000000'
     }).filter((proposal: any): boolean => {
       return (value === 0 ? proposal.end < now : proposal.end > now)
-    })
+    }).filter((proposal: any): boolean => {
+          return (proposal.id!=='0'&& proposal.id!==0)
+        })
   }
 
   const stopPropagation = (event: React.SyntheticEvent) => {
