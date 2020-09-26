@@ -79,7 +79,7 @@ const getApy = async (web3: Web3, asset: any, address: string, callback: any) =>
   try {
     const rewardRate = await erc20Contract.methods.rewardRate().call({ from: address })
     const totalSupply = await erc20Contract.methods.totalSupply().call({ from: address })
-    callback(null, totalSupply <= 0 ? 0 : parseFloat(rewardRate)  / parseFloat(totalSupply) / tokenPrice * 31536000)
+    callback(null, totalSupply <= 0 ? 0 : parseFloat(rewardRate)  / parseFloat(totalSupply) / tokenPrice * 31536000 * 100)
   } catch (e) {
     return callback(e);
   }
