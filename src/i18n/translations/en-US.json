@@ -52,7 +52,11 @@
 	"comeSoon2": "-",
 	"pluWarning": "PLU Reward Requirements",
 	"pluWarning1": "1. You must have voted in a proposal recently.",
-	"pluWarning2": "2. You must have at least 1000 BPT staked in POOL 2."
+	"pluWarning2": "2. You must have at least 1000 BPT staked in POOL 2.",
+    "plubtWarning": "Pool 2 Mining Requirements",
+	"plubtWarning1": "1. Add liquidity to PLU/DAI in Balancer to obtain BPT.",
+	"plubtWarning2": "2. Stake BPT to participate in mining.",
+	"plubtlink":"[Click To Add Liquidity]"
 	},
 	"vote": {
 	"finished": "Finished",

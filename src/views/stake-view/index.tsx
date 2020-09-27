@@ -10,9 +10,11 @@ import {
   Accordion,
   AccordionSummary,
   makeStyles,
+  Modal,
+  Backdrop, Fade
 } from "@material-ui/core";
 import Stake from "./stake";
-import { Check, Clear } from "@material-ui/icons";
+import { Check, Clear, Close } from "@material-ui/icons";
 
 import Loader from "../../components/loader.compoent";
 import { getRewardBalances, getBPTLPRequirements } from "src/actions/reward";
@@ -26,6 +28,7 @@ import { Action } from "redux";
 import { useI18n } from "src/i18n";
 import { getTokenPrice } from "src/actions/tools";
 import { HashRouter, Link, Router } from "react-router-dom";
+import ColorButton from "src/components/color-button.component";
 
 const useStyles = makeStyles((theme) => ({
   warning: {
@@ -53,10 +56,36 @@ const useStyles = makeStyles((theme) => ({
       minWidth: "100px",
     },
   },
+  content: {
+    background: 'white',
+    padding: 30,
+    "&:focus": {
+      outline: 'none'
+    }
+  },
+  close: {
+    textAlign: 'right',
+    cursor: 'pointer',
+    transform: 'translate(10px,-10px)',
+    height: '20px',
+    width: "100%",
+    "& .MuiSvgIcon-root": {
+      width: '24px',
+      height: '24px'
+    }
+  },
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(2, 4, 3),
+    justifyContent: "center",
+  },
 }));
 
-function StackView(props:any) {
-  const pool = /^[123]$/.test(props.match.params.pool) ? parseInt(props.match.params.pool) - 1 : 0  
+function StackView(props: any) {
+  const pool = /^[123]$/.test(props.match.params.pool)
+    ? parseInt(props.match.params.pool) - 1
+    : 0;
   const i18n = useI18n();
   const web3React = useWeb3React();
   const dispatch = useDispatch();
@@ -101,10 +130,12 @@ function StackView(props:any) {
   const [loading] = React.useState(false);
   const [stakes, setStakes] = React.useState(poolsList[pool].tokens);
 
+
+
   React.useEffect(() => {
-    setCurrentPool(pool)
-    setStakes(poolsList[pool].tokens)
-  })
+    setCurrentPool(pool);
+    setStakes(poolsList[pool].tokens);
+  });
 
   const handleChange = (id: any) => {
     setExpanded(id == expanded ? "" : id);
@@ -117,8 +148,18 @@ function StackView(props:any) {
     if (value != null) {
       setCurrentPool(value);
       setStakes([...poolsList[value].tokens]);
-      props.history.push(`/stake/${value + 1}`)
+      props.history.push(`/stake/${value + 1}`);
     }
+  };
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -148,6 +189,15 @@ function StackView(props:any) {
                 );
               })}
             </ToggleButtonGroup>
+            {/* <ColorButton
+              variant="outlined"
+              color="primary"
+              // startIcon={<AddOutlinedIcon/>}
+              disabled={loading || !account}
+              onClick={handleOpen}
+            > 
+              {i18n.t("stake.aboutPLU")}
+            </ColorButton> */}
           </Grid>
         </Grid>
         {poolsList[currentPool].name == "POOL 3" && (
@@ -173,6 +223,20 @@ function StackView(props:any) {
             </Typography>
           </div>
         )}
+        {poolsList[currentPool].name == "POOL 2" && (
+          <div className={classes.warning}>
+            <Typography variant={"h4"} noWrap>
+              {i18n.t("stake.plubtWarning")}
+            </Typography>
+            <Typography variant={"h5"} className={classes.grey}>
+              {i18n.t("stake.plubtWarning1")}{" "}
+              <a target="_blank" href="https://pools.balancer.exchange/#/pool/0x752a5b5bb4751d6c59674f6ef056d3d383a36e61/">{ i18n.t('stake.plubtlink')} </a>
+            </Typography>
+            <Typography variant={"h5"} className={classes.grey}>
+              {i18n.t("stake.plubtWarning2")}{" "}
+            </Typography>
+          </div>
+        )}
         {stakes &&
           stakes.map((stake: { id: any }) => {
             return (
@@ -188,6 +252,29 @@ function StackView(props:any) {
             );
           })}
       </Box>
+      <div>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <div className={classes.content}>
+            <div className={classes.close}>
+              <Close onClick={handleClose} />
+            </div>
+            
+          </div>
+        </Fade>
+      </Modal>
+      </div>
     </Container>
   );
 }

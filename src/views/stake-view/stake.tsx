@@ -104,7 +104,17 @@ const useStyles = makeStyles((theme) => ({
     width: "325px",
     [theme.breakpoints.down("sm")]: {
       width: "auto",
-      flex: 1,
+      paddingBottom: "15px",
+    },
+  },
+  headingShow: {
+    flex: 1,
+    justifyContent: "flex-end",
+    [theme.breakpoints.down("sm")]: {
+      display: "block",
+      justifyContent: "flex-end",
+      "text-align": "right",
+      width: "auto",
     },
   },
   headingEarning: {
@@ -263,7 +273,7 @@ function StacksView(props: any) {
         id="panel1bh-header"
       >
         <Grid container className={classes.poolSummary}>
-          <Grid item xs={6} sm={12} md={3} className={classes.headingName}>
+          <Grid item xs={12} sm={6} md={3} className={classes.headingName}>
             <div className={classes.assetIcon}>
               <img
                 alt=""
@@ -302,14 +312,14 @@ function StacksView(props: any) {
                 {stake.stakedBalance
                   ? stake.stakedBalance.toFixed(5).slice(0, -1)
                   : "0.0000"}{" "}
-                {stake.ymbol}
+                {stake.symbol}
               </Typography>
               <Typography variant={"h5"} className={classes.grey}>
                 {i18n.t("stake.currentlyStaked")}
               </Typography>
             </Grid>
           )}
-          <Grid item xs={6} sm={5} md={3} className={classes.heading}>
+          <Grid item xs={6} sm={6} md={3} className={classes.headingShow}>
             <Typography variant={"h5"} noWrap>
               {stake.rewardsSymbol == "$" ? stake.rewardsSymbol : ""}{" "}
               {stake.rewardsAvailable
@@ -321,7 +331,7 @@ function StacksView(props: any) {
               {i18n.t("stake.rewardsAvailable")}
             </Typography>
           </Grid>
-          <Grid item xs={6} sm={5} md={3} className={classes.headingEarning}>
+          <Grid item xs={6} sm={6} md={3} className={classes.headingEarning}>
             <Typography variant={"h5"} noWrap>
               {apy ? apy.toFixed(5).slice(0, -1) + "%"
                 : "-"}{" "}
