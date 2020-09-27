@@ -24,6 +24,7 @@ import { getVaultBalances } from "src/actions/vault";
 import { useWeb3React } from "@web3-react/core";
 import { RootState } from "src/reducers";
 import { iteratorSymbol } from "immer/dist/internal";
+import { getRewardBalances } from "src/actions/reward";
 
 const useStyles = makeStyles((theme) => ({
   tool: {
@@ -82,15 +83,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// 金额千分位
 const moneyFormat = (num: string | number) => {
   return Number(num)
     .toFixed(4)
     .replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 };
 
-// 黑名单，拿不到价格
-const blacklist = ['ETH/DAI LP','ETH/USDC LP','ETH/USDT LP','ETH/WBTC LP'];
+const blacklist = ['ETH/WBTC LP'];
+const fixedPrice:any = {
+  'ETH/DAI LP': 43.958,
+  'ETH/USDC LP': 46357066.169,
+  'ETH/USDT LP': 46330982.88444
+}
 
 export default function ToolView() {
   const classes = useStyles();
@@ -104,10 +108,21 @@ export default function ToolView() {
   const [aList, setAList] = React.useState(assetsList);
   const [loading, setLoading] = React.useState(true);
   const [totalNum, setTotalNum] = React.useState(0);
+  const poolsList = useSelector((state: RootState) => state.reward.rewardPools);
+  const [tokens, setTokens] = React.useState(poolsList[0].tokens);
+  const [PLUPrice, setPLUPrice] = React.useState(10);
   
   React.useEffect(() => {
-    if (account) dispatch(getVaultBalances(web3React, account));
+    if (account){
+      dispatch(getVaultBalances(web3React, account));
+      dispatch(getRewardBalances(web3React, account));
+      setTokens(poolsList[0].tokens);
+    } 
   }, [account]);
+
+  React.useEffect(()=>{
+    setTokens(poolsList[0].tokens)
+  },[poolsList])
 
   // DAI value
   React.useEffect(() => {
@@ -122,17 +137,19 @@ export default function ToolView() {
         dispatch(getTokenUSDPrice(ads.join(",")))
           .then((prices) => {
             for (let i = 0; i < assetsList.length; i++) {
-              let cur = {
+              let cur:any = {
                 ...assetsList[i]
               }
               cur.price = 1.03;
               if (prices[cur.erc20address]) {
                 cur.price = prices[cur.erc20address].usd;
               }
+              if(fixedPrice[cur.id]){
+                cur.price = fixedPrice[cur.id];
+              }
               let p = cur.price;
               cur.value = (p * cur.vaultBalance).toFixed(4);
               cur.totalValue = (p * cur.total).toFixed(4);
-              // 过滤黑名单里的数据，若日后不需要直接删掉就可以
               if(blacklist.includes(cur.id)){
                 cur.value = 0;
                 cur.totalValue = 0;
@@ -149,7 +166,7 @@ export default function ToolView() {
           });
       }
     }
-  }, []);
+  }, [assetsList]);
 
   const handleAlignment = (
     event: React.MouseEvent<HTMLElement>,
@@ -158,10 +175,16 @@ export default function ToolView() {
     setSort(newSort);
   };
 
-  // 获取展示内容
   const getText = ( data: any)=>{
     let num = Number(Number(data).toFixed(5));
     return (num && (num < Number.MAX_SAFE_INTEGER) && num > 0)?moneyFormat(num.toFixed(5).slice(0,-1)): "-"
+  }
+
+  const getApy = (index:number,num:any)=>{
+    let reward = tokens[index].apy * PLUPrice;
+    const apy = num + (reward || 0);
+    let result = (apy && apy < Number.MAX_SAFE_INTEGER && apy > 0)? apy.toFixed(5).slice(0,-1) + " %" : "-"
+    return result
   }
 
   return (
@@ -226,7 +249,7 @@ export default function ToolView() {
                           "Loading..."
                         ) : (
                           <span className={classes.red}>
-                            {(row.apy && row.apy < Number.MAX_SAFE_INTEGER && row.apy > 0)?row.apy.toFixed(5).slice(0,-1) + " %" : "-"}
+                            {getApy(index,row.apy)}
                           </span>
                         )}
                       </TableCell>
