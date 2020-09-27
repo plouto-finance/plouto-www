@@ -134,21 +134,21 @@ const initialState = {
       link: 'https://pools.balancer.exchange/#/pool/0xd5b58830b159d86ddf229a0429817fc7d446b45c/',
       depositsEnabled: true,
       tokens: [
-        // {
-        //   id: 'PLU/DAI BPT',
-        //   address: '0xd5b58830b159d86ddf229a0429817fc7d446b45c',
-        //   symbol: 'Balancer BPT',
-        //   abi: config.erc20ABI,
-        //   decimals: 18,
-        //   rewardsAddress: config.bptRewardsAddress,
-        //   rewardsABI: config.bptRewardsABI,
-        //   rewardsSymbol: 'PLU',
-        //   rewardsDecimals: 18,
-        //   balance: 0,
-        //   stakedBalance: 0,
-        //   rewardsAvailable: 0,
-        //   rewardPerToken: 0
-        // }
+        {
+          id: 'PLU/DAI BPT',
+          address: '0x752a5b5bb4751d6c59674f6ef056d3d383a36e61',
+          symbol: 'Balancer BPT',
+          abi: config.erc20ABI,
+          decimals: 18,
+          rewardsAddress: config.bptRewardsAddress,
+          rewardsABI: config.bptRewardsABI,
+          rewardsSymbol: 'PLU',
+          rewardsDecimals: 18,
+          balance: 0,
+          stakedBalance: 0,
+          rewardsAvailable: 0,
+          rewardPerToken: 0
+        }
       ]
     },
     {
