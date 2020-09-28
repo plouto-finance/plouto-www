@@ -49,7 +49,7 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "typescript": "~3.7.2",
-    "web3": "^1.2.11"
+    "web3": "1.2.11"
   },
   "devDependencies": {
     "aliyunoss-webpack-plugin2": "^0.2.1",
