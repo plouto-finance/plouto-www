@@ -54,8 +54,8 @@
     "pluWarning1": "1. 您需最近参与过Plouto的提案投票。",
     "pluWarning2": "2. 您需在POOL 2抵押至少1000 以上的BPT。",
     "plubtWarning": "POOL 2 PLU挖矿要求",
-    "plubtWarning1": "1. 在Balancer为 PLU/ DAI 添加流动性获得 BPT凭证。 【点击跳转Balancer的PLU/DAI资金池】",
-    "plubtWarning2": "2. 质押BPT凭证参与挖矿。",
+    "plubtWarning1": "1. 在Balancer为 PLU/ DAI 添加流动性获得 BPT凭证。",
+    "plubtWarning2": "2. 抵押BPT凭证参与挖矿。",
     "plubtlink":"【点击跳转Balancer的PLU/DAI资金池】"
   },
   "vote": {

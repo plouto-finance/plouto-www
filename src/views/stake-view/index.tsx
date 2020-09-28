@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
     color: colors.darkGray,
     display: "flex",
     alignItems: "center",
+    padding: theme.spacing(1, 0),
   },
   pageBox: {
     paddingTop: "70px",
@@ -229,8 +230,7 @@ function StackView(props: any) {
               {i18n.t("stake.plubtWarning")}
             </Typography>
             <Typography variant={"h5"} className={classes.grey}>
-              {i18n.t("stake.plubtWarning1")}{" "}
-              <a target="_blank" href="https://pools.balancer.exchange/#/pool/0x752a5b5bb4751d6c59674f6ef056d3d383a36e61/">{ i18n.t('stake.plubtlink')} </a>
+              <a target="_blank" href="https://pools.balancer.exchange/#/pool/0x752a5b5bb4751d6c59674f6ef056d3d383a36e61/">{i18n.t("stake.plubtWarning1")} </a>
             </Typography>
             <Typography variant={"h5"} className={classes.grey}>
               {i18n.t("stake.plubtWarning2")}{" "}
