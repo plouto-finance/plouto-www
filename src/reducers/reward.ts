@@ -62,6 +62,22 @@ const initialState = {
           rewardPerToken: 0
         },
         {
+          id: 'pHT',
+          address: '0x03949a5a7Fe155B4029bC6ef732FE1e84732319a',
+          erc20address: '0x6f259637dcd74c767781e37bc6133cd6a68aa161',
+          symbol: 'pHT',
+          abi: config.erc20ABI,
+          decimals: 18,
+          rewardsAddress: config.pHTRewardsAddress,
+          rewardsABI: config.pHTRewardsABI,
+          rewardsSymbol: 'PLU',
+          rewardsDecimals: 18,
+          balance: 0,
+          stakedBalance: 0,
+          rewardsAvailable: 0,
+          rewardPerToken: 0
+        },
+        {
           id: 'pyCRV',
           address: '0x3445c9EF7862381622d74af109F5b095cfB8b6d3',
           erc20address: '0xdf5e0e81dff6faf3a7e52ba697820c5e32d806a8',
