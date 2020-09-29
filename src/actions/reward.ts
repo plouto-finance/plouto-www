@@ -76,6 +76,8 @@ const getApy = async (web3: Web3, asset: any, address: string, callback: any) =>
     tokenPrice = 10 ** 12
   } else if(asset.address == '0x752a5b5bb4751d6c59674f6ef056d3d383a36e61') {
     tokenPrice = 10
+  } else if(asset.erc20address == '0x6f259637dcd74c767781e37bc6133cd6a68aa161') {
+    tokenPrice = 4.6
   }
 
   try {
