@@ -189,7 +189,7 @@ const initialState = {
           stakedBalance: 0,
           rewardsAvailable: 0,
           rewardPerToken: 0,
-          tokenInitPrice: 5
+          tokenInitPrice: 10
         }
       ]
     },
