@@ -27,7 +27,8 @@ const initialState = {
           balance: 0,
           stakedBalance: 0,
           rewardsAvailable: 0,
-          rewardPerToken: 0
+          rewardPerToken: 0,
+          tokenInitPrice: 1
         },
         {
           id: 'pUSDC',
@@ -43,7 +44,8 @@ const initialState = {
           balance: 0,
           stakedBalance: 0,
           rewardsAvailable: 0,
-          rewardPerToken: 0
+          rewardPerToken: 0,
+          tokenInitPrice: 10 ** 12
         },
         {
           id: 'pUSDT',
@@ -59,7 +61,8 @@ const initialState = {
           balance: 0,
           stakedBalance: 0,
           rewardsAvailable: 0,
-          rewardPerToken: 0
+          rewardPerToken: 0,
+          tokenInitPrice: 10 ** 12
         },
         {
           id: 'pHT',
@@ -75,7 +78,25 @@ const initialState = {
           balance: 0,
           stakedBalance: 0,
           rewardsAvailable: 0,
-          rewardPerToken: 0
+          rewardPerToken: 0,
+          tokenInitPrice: 4.6
+        },
+        {
+          id: 'pHBC',
+          address: '0x516838Ba6ee79c29C9c1e91fe42f169977e0346c',
+          erc20address: '0x28Da24ed20906CDE186D8B4f83412C3AE37a6269',
+          symbol: 'pHBC',
+          abi: config.erc20ABI,
+          decimals: 18,
+          rewardsAddress: config.pHBCRewardsAddress,
+          rewardsABI: config.pHBCRewardsABI,
+          rewardsSymbol: 'PLU',
+          rewardsDecimals: 18,
+          balance: 0,
+          stakedBalance: 0,
+          rewardsAvailable: 0,
+          rewardPerToken: 0,
+          tokenInitPrice: 2.5,
         },
         {
           id: 'pyCRV',
@@ -91,7 +112,8 @@ const initialState = {
           balance: 0,
           stakedBalance: 0,
           rewardsAvailable: 0,
-          rewardPerToken: 0
+          rewardPerToken: 0,
+          tokenInitPrice: 1
         },
         {
           id: 'pETH/DAI LP',
@@ -107,7 +129,8 @@ const initialState = {
           balance: 0,
           stakedBalance: 0,
           rewardsAvailable: 0,
-          rewardPerToken: 0
+          rewardPerToken: 0,
+          tokenInitPrice: 43.958
         },
         {
           id: 'pETH/USDC LP',
@@ -123,7 +146,8 @@ const initialState = {
           balance: 0,
           stakedBalance: 0,
           rewardsAvailable: 0,
-          rewardPerToken: 0
+          rewardPerToken: 0,
+          tokenInitPrice: 46357066.169
         },
         {
           id: 'pETH/USDT LP',
@@ -139,7 +163,8 @@ const initialState = {
           balance: 0,
           stakedBalance: 0,
           rewardsAvailable: 0,
-          rewardPerToken: 0
+          rewardPerToken: 0,
+          tokenInitPrice: 46330982.88444
         }
       ]
     },
@@ -163,7 +188,8 @@ const initialState = {
           balance: 0,
           stakedBalance: 0,
           rewardsAvailable: 0,
-          rewardPerToken: 0
+          rewardPerToken: 0,
+          tokenInitPrice: 5
         }
       ]
     },
@@ -187,7 +213,8 @@ const initialState = {
         //   balance: 0,
         //   stakedBalance: 0,
         //   rewardsAvailable: 0,
-        //   rewardPerToken: 0
+        //   rewardPerToken: 0,
+        //   tokenInitPrice: 5
         // }
       ]
     }

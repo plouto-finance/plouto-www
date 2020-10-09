@@ -70,7 +70,7 @@ function VaultView() {
 
   const PLU = { erc20address: "", decimals: 18 };
 
-  const [PLUPrice, setPLUPrice] = React.useState(10);
+  const [PLUPrice, setPLUPrice] = React.useState(5);
   // React.useEffect(() => {
   //   if (PLU.erc20address)
   //     thdispatch(getTokenPrice(PLU.erc20address, PLU.decimals))

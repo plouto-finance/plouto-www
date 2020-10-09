@@ -61,29 +61,10 @@ const getRewardPerToken = async (web3: Web3, asset: any, address: string, callba
 const getApy = async (web3: Web3, asset: any, address: string, callback: any) => {
   const erc20Contract = new web3.eth.Contract(asset.rewardsABI, asset.rewardsAddress);
 
-  let tokenPrice = 1;
-
-  // LP init price
-  if(asset.erc20address === '0xa478c2975ab1ea89e8196811f51a7b7ade33eb11') {
-    tokenPrice = 43.958
-  } else if(asset.erc20address === '0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc') {
-    tokenPrice = 46357066.169
-  } else if(asset.erc20address === '0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852') {
-    tokenPrice = 46330982.88444
-  } else if(asset.erc20address === '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48') {
-    tokenPrice = 10 ** 12
-  } else if(asset.erc20address === '0xdAC17F958D2ee523a2206206994597C13D831ec7') {
-    tokenPrice = 10 ** 12
-  } else if(asset.address == '0x752a5b5bb4751d6c59674f6ef056d3d383a36e61') {
-    tokenPrice = 10
-  } else if(asset.erc20address == '0x6f259637dcd74c767781e37bc6133cd6a68aa161') {
-    tokenPrice = 4.6
-  }
-
   try {
     const rewardRate = await erc20Contract.methods.rewardRate().call({ from: address })
     const totalSupply = await erc20Contract.methods.totalSupply().call({ from: address })
-    callback(null, totalSupply <= 0 ? 0 : parseFloat(rewardRate)  / parseFloat(totalSupply) / tokenPrice * 31536000 * 100)
+    callback(null, totalSupply <= 0 ? 0 : parseFloat(rewardRate)  / parseFloat(totalSupply) / asset.tokenInitPrice * 31536000 * 100)
   } catch (e) {
     return callback(e);
   }
