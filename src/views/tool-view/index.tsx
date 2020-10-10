@@ -93,7 +93,8 @@ const blacklist = ['ETH/WBTC LP'];
 const fixedPrice:any = {
   'ETH/DAI LP': 43.958,
   'ETH/USDC LP': 46357066.169,
-  'ETH/USDT LP': 46330982.88444
+  'ETH/USDT LP': 46330982.88444,
+  'HBC': 2.8
 }
 
 export default function ToolView() {
