@@ -65,6 +65,23 @@ const initialState = {
           tokenInitPrice: 10 ** 12
         },
         {
+          id: 'pHUSD',
+          address: '0xaf5e80De69C9Eae72be69Ede9BAa15B113971317',
+          erc20address: '0xdf574c24545e5ffecb9a659c229253d4111d87e1',
+          symbol: 'pHUSD',
+          abi: config.erc20ABI,
+          decimals: 8,
+          rewardsAddress: config.pHUSDRewardsAddress,
+          rewardsABI: config.pHUSDRewardsABI,
+          rewardsSymbol: 'PLU',
+          rewardsDecimals: 18,
+          balance: 0,
+          stakedBalance: 0,
+          rewardsAvailable: 0,
+          rewardPerToken: 0,
+          tokenInitPrice: 10 ** 10,
+        },
+        {
           id: 'pHT',
           address: '0x03949a5a7Fe155B4029bC6ef732FE1e84732319a',
           erc20address: '0x6f259637dcd74c767781e37bc6133cd6a68aa161',
