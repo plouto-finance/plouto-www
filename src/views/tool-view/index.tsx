@@ -111,7 +111,7 @@ export default function ToolView() {
   const [totalNum, setTotalNum] = React.useState(0);
   const poolsList = useSelector((state: RootState) => state.reward.rewardPools);
   const [tokens, setTokens] = React.useState(poolsList[0].tokens);
-  const [PLUPrice, setPLUPrice] = React.useState(5);
+  const [PLUPrice, setPLUPrice] = React.useState(0.5);
   
   React.useEffect(() => {
     if (account){
